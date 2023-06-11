@@ -24,17 +24,31 @@ class RecaptchaV2 extends Capsolver implements CaptchaTaskProtocol
 
     public function getPostData()
     {
-        return [
+        $postData = [
             'type' => 'ReCaptchaV2Task',
             'websiteURL' => $this->websiteUrl,
             'websiteKey' => $this->websiteKey,
             'proxy' => $this->proxy,
-            'pageAction' => $this->pageAction,
             'isInvisible' => $this->isInvisible,
-            'apiDomain' => $this->apiDomain,
-            'userAgent' => $this->userAgent,
-            'cookies' => $this->cookies,
         ];
+
+        if ($this->pageAction) {
+            $postData['pageAction'] = $this->pageAction;
+        }
+        
+        if ($this->apiDomain) {
+            $postData['apiDomain'] = $this->apiDomain;
+        }
+
+        if ($this->userAgent) {
+            $postData['userAgent'] = $this->userAgent;
+        }
+
+        if ($this->cookies) {
+            $postData['cookies'] = $this->cookies;
+        }
+
+        return $postData;
     }
 
     public function setTaskInfo($taskInfo)
